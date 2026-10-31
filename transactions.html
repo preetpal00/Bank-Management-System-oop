@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transaction History | Apex Reserve Bank</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/forms.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+</head>
+<body>
+
+  <div class="sidebar-backdrop"></div>
+
+  <div class="app-wrapper">
+    <aside class="app-sidebar">
+      <div class="sidebar-header">
+        <a href="/dashboard" class="brand-logo">
+          <div class="brand-icon"><i class="fas fa-landmark"></i></div>
+          <span>Apex Reserve</span>
+        </a>
+      </div>
+      <nav class="sidebar-menu" id="sidebar-menu-items"></nav>
+      <div class="sidebar-footer">
+        <button type="button" class="btn-logout" id="btn-logout">
+          <i class="fas fa-arrow-right-from-bracket"></i>
+          <span>Sign Out</span>
+        </button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-topbar">
+        <div class="topbar-left">
+          <button type="button" class="menu-toggle-btn" id="menu-toggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <h1 class="page-title">Transaction History</h1>
+        </div>
+        <div class="topbar-right">
+          <div class="current-date-badge">
+            <i class="fas fa-calendar-day"></i>
+            <span id="topbar-current-date">--</span>
+          </div>
+          <div class="user-profile-chip">
+            <div class="user-avatar" id="topbar-user-avatar">U</div>
+            <div class="user-meta">
+              <span class="user-name" id="topbar-user-name">User</span>
+              <span class="user-role-badge" id="topbar-user-role">ROLE</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="page-content">
+        <!-- Filter Controls Card -->
+        <div class="card" style="margin-bottom: 24px;">
+          <form id="transaction-filter-form">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; align-items: flex-end;">
+              <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label">Search Reference</label>
+                <input type="text" id="filter-search" class="form-control" placeholder="TXN... or description">
+              </div>
+
+              <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label">Transaction Type</label>
+                <select id="filter-type" class="form-control">
+                  <option value="ALL">All Transactions</option>
+                  <option value="DEPOSIT">Deposits Only</option>
+                  <option value="WITHDRAWAL">Withdrawals Only</option>
+                  <option value="TRANSFER">Fund Transfers</option>
+                </select>
+              </div>
+
+              <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label">Start Date</label>
+                <input type="date" id="filter-start-date" class="form-control">
+              </div>
+
+              <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label">End Date</label>
+                <input type="date" id="filter-end-date" class="form-control">
+              </div>
+
+              <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label">Min Amount (₹)</label>
+                <input type="number" id="filter-min-amount" class="form-control" placeholder="0">
+              </div>
+
+              <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label">Max Amount (₹)</label>
+                <input type="number" id="filter-max-amount" class="form-control" placeholder="No limit">
+              </div>
+
+              <div style="display: flex; gap: 8px;">
+                <button type="submit" class="btn btn-primary" style="flex: 1;">
+                  <i class="fas fa-filter"></i> <span>Filter</span>
+                </button>
+                <button type="button" class="btn btn-outline" id="btn-reset-filters" title="Reset">
+                  <i class="fas fa-rotate-left"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Transactions Table Card -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-clock-rotate-left"></i> Account Statement Records</h3>
+            <span id="pagination-info" style="font-size: 0.85rem; color: var(--text-muted); font-weight: 500;"></span>
+          </div>
+
+          <div class="table-responsive">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Reference</th>
+                  <th>Type</th>
+                  <th>Account</th>
+                  <th>Amount</th>
+                  <th>Description</th>
+                  <th>Date & Time</th>
+                  <th>Receipt</th>
+                </tr>
+              </thead>
+              <tbody id="transactions-tbody">
+                <!-- Dynamically loaded -->
+              </tbody>
+            </table>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--border-color);">
+            <button type="button" class="btn btn-outline btn-sm" id="btn-prev-page">
+              <i class="fas fa-chevron-left"></i> Previous Page
+            </button>
+            <button type="button" class="btn btn-outline btn-sm" id="btn-next-page">
+              Next Page <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Digital Receipt Modal -->
+  <div class="modal-backdrop" id="modal-receipt">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title"><i class="fas fa-receipt"></i> Digital Transaction Receipt</h3>
+        <button type="button" class="modal-close-btn" onclick="closeModal('modal-receipt')">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 24px 28px;">
+        <div style="text-align: center; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px dashed var(--border-color);">
+          <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted);">Apex Reserve Bank Receipt</div>
+          <div id="receipt-amount" style="font-size: 2.2rem; font-weight: 800; color: var(--primary); margin: 6px 0;">₹0.00</div>
+          <span id="receipt-status" class="badge badge-success">SUCCESS</span>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 12px; font-size: 0.92rem;">
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--text-muted);">Reference Number:</span>
+            <strong id="receipt-ref" style="font-family: monospace;">-</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--text-muted);">Transaction Type:</span>
+            <strong id="receipt-type">-</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--text-muted);">Account Number:</span>
+            <strong id="receipt-account">-</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--text-muted);">Account Holder:</span>
+            <strong id="receipt-holder">-</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--text-muted);">Description:</span>
+            <span id="receipt-desc" style="text-align: right; max-width: 60%;">-</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--text-muted);">Date & Time:</span>
+            <strong id="receipt-date">-</strong>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="closeModal('modal-receipt')">
+          <i class="fas fa-check"></i> <span>Close</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/transactions.js"></script>
+</body>
+</html>

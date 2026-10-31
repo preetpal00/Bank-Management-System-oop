@@ -1,0 +1,126 @@
+/* ==========================================================================
+   BANK MANAGEMENT SYSTEM - RESPONSIVE STYLES
+   ========================================================================== */
+
+/* Tablet & Mobile Screens (<= 992px) */
+@media (max-width: 992px) {
+  :root {
+    --sidebar-width: 250px;
+  }
+
+  .app-sidebar {
+    transform: translateX(-100%);
+    box-shadow: none;
+  }
+
+  .app-sidebar.show-sidebar {
+    transform: translateX(0);
+    box-shadow: 4px 0 25px rgba(0, 0, 0, 0.25);
+  }
+
+  .sidebar-backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(20, 45, 78, 0.5);
+    backdrop-filter: blur(2px);
+    z-index: 95;
+  }
+
+  .sidebar-backdrop.show {
+    display: block;
+  }
+
+  .app-main {
+    margin-left: 0;
+  }
+
+  .menu-toggle-btn {
+    display: block;
+  }
+
+  .dashboard-grid-2col {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Small Tablets & Mobile Devices (<= 768px) */
+@media (max-width: 768px) {
+  .app-topbar {
+    padding: 0 16px;
+  }
+
+  .page-content {
+    padding: 20px 16px;
+  }
+
+  .current-date-badge {
+    display: none;
+  }
+
+  .user-meta {
+    display: none;
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .auth-card {
+    padding: 28px 20px;
+  }
+
+  .card {
+    padding: 18px;
+  }
+
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .custom-table th, .custom-table td {
+    padding: 12px 14px;
+  }
+
+  .quick-actions-bar {
+    justify-content: stretch;
+  }
+
+  .quick-action-btn {
+    flex: 1 1 calc(50% - 10px);
+    justify-content: center;
+  }
+}
+
+/* Extra Small Screens (<= 480px) */
+@media (max-width: 480px) {
+  .card-number {
+    font-size: 1.15rem;
+    letter-spacing: 2px;
+  }
+
+  .quick-action-btn {
+    flex: 1 1 100%;
+  }
+
+  .toast {
+    min-width: calc(100vw - 32px);
+    right: 16px;
+    left: 16px;
+  }
+}

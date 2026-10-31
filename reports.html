@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reports & Export | Apex Reserve Bank</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/forms.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+</head>
+<body>
+
+  <div class="sidebar-backdrop"></div>
+
+  <div class="app-wrapper">
+    <aside class="app-sidebar">
+      <div class="sidebar-header">
+        <a href="/dashboard" class="brand-logo">
+          <div class="brand-icon"><i class="fas fa-landmark"></i></div>
+          <span>Apex Reserve</span>
+        </a>
+      </div>
+      <nav class="sidebar-menu" id="sidebar-menu-items"></nav>
+      <div class="sidebar-footer">
+        <button type="button" class="btn-logout" id="btn-logout">
+          <i class="fas fa-arrow-right-from-bracket"></i>
+          <span>Sign Out</span>
+        </button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-topbar">
+        <div class="topbar-left">
+          <button type="button" class="menu-toggle-btn" id="menu-toggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <h1 class="page-title">Reports & Analytics</h1>
+        </div>
+        <div class="topbar-right">
+          <div class="current-date-badge">
+            <i class="fas fa-calendar-day"></i>
+            <span id="topbar-current-date">--</span>
+          </div>
+          <div class="user-profile-chip">
+            <div class="user-avatar" id="topbar-user-avatar">A</div>
+            <div class="user-meta">
+              <span class="user-name" id="topbar-user-name">Admin</span>
+              <span class="user-role-badge" id="topbar-user-role">ADMIN</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="page-content">
+        <!-- Export to CSV Top Banner -->
+        <div class="card" style="margin-bottom: 28px; background: linear-gradient(135deg, #142D4E, #245B91); color: #FFFFFF;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+            <div>
+              <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 6px;">Audit Reports & Data Export</h3>
+              <p style="font-size: 0.9rem; opacity: 0.85;">
+                Export all historical database transactions into formatted CSV using C++ file streams.
+              </p>
+            </div>
+            <button type="button" class="btn btn-accent btn-lg" id="btn-export-csv">
+              <i class="fas fa-file-csv"></i> <span>Export All Transactions to CSV</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Daily Report Section -->
+        <div class="card" style="margin-bottom: 28px;">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title"><i class="fas fa-calendar-day"></i> Daily Transaction Audit</h3>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+                Review daily transaction turnover and itemized records.
+              </p>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <label for="report-daily-date" style="font-size: 0.85rem; font-weight: 600;">Select Date:</label>
+              <input type="date" id="report-daily-date" class="form-control" style="width: auto; padding: 6px 12px;">
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 20px; margin-bottom: 20px; align-items: center;">
+            <div style="background: var(--bg-main); border: 1px solid var(--border-color); border-radius: 8px; padding: 14px 20px;">
+              <span style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Total Turnover for Date</span>
+              <div id="daily-turnover-val" style="font-size: 1.6rem; font-weight: 800; color: var(--primary);">₹0.00</div>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Reference</th>
+                  <th>Account</th>
+                  <th>Customer</th>
+                  <th>Type</th>
+                  <th>Amount</th>
+                  <th>Date & Time</th>
+                </tr>
+              </thead>
+              <tbody id="daily-report-tbody">
+                <!-- Dynamically loaded -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Monthly & Account Breakdown Grids -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 24px;">
+          <!-- Monthly Turnover Breakdown -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title"><i class="fas fa-calendar-check"></i> Monthly Turnover Breakdown</h3>
+              <input type="month" id="report-month-select" class="form-control" style="width: auto; padding: 6px 12px;">
+            </div>
+            <div style="margin-bottom: 16px;">
+              <span style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Monthly Total Volume</span>
+              <div id="monthly-volume-val" style="font-size: 1.5rem; font-weight: 800; color: var(--secondary);">₹0.00</div>
+            </div>
+            <div class="table-responsive">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Count</th>
+                    <th>Total Volume (INR)</th>
+                  </tr>
+                </thead>
+                <tbody id="monthly-breakdown-tbody">
+                  <!-- Dynamically loaded -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Account Summary Breakdown -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title"><i class="fas fa-layer-group"></i> Account Type Distribution Summary</h3>
+            </div>
+            <div class="table-responsive">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Accounts</th>
+                    <th>Total Reserves</th>
+                    <th>Average</th>
+                  </tr>
+                </thead>
+                <tbody id="account-report-tbody">
+                  <!-- Dynamically loaded -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/reports.js"></script>
+</body>
+</html>

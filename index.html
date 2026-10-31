@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apex Reserve Bank | Modern Banking System</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+  <style>
+    .hero-section {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 10% 20%, rgba(36, 91, 145, 0.08) 0%, rgba(20, 45, 78, 0.03) 90%), #F4F7FB;
+      padding: 60px 24px;
+      text-align: center;
+    }
+    .hero-content {
+      max-width: 840px;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: #e8f1fa;
+      color: #245B91;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .hero-title {
+      font-size: 3rem;
+      font-weight: 800;
+      color: #142D4E;
+      line-height: 1.2;
+      margin-bottom: 18px;
+    }
+    .hero-subtitle {
+      font-size: 1.2rem;
+      color: #718096;
+      line-height: 1.6;
+      margin-bottom: 36px;
+    }
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+    .feature-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+      text-align: left;
+    }
+    .feature-card {
+      background: #FFFFFF;
+      padding: 28px;
+      border-radius: 16px;
+      border: 1px solid #E2E8F0;
+      box-shadow: 0 4px 12px rgba(20, 45, 78, 0.05);
+    }
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 18px;
+      color: #FFFFFF;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <header style="height: 74px; background: #FFFFFF; border-bottom: 1px solid #E2E8F0; padding: 0 32px; display: flex; align-items: center; justify-content: space-between;">
+    <a href="/" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
+      <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #36A6A0, #245B91); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #FFF; font-size: 1.2rem;">
+        <i class="fas fa-landmark"></i>
+      </div>
+      <div>
+        <div style="font-weight: 800; font-size: 1.15rem; color: #142D4E;">Apex Reserve Bank</div>
+        <div style="font-size: 0.72rem; color: #718096; text-transform: uppercase; letter-spacing: 0.05em;">Digital Core Banking</div>
+      </div>
+    </a>
+    <div style="display: flex; gap: 12px;">
+      <a href="/login" class="btn btn-outline"><i class="fas fa-lock"></i> <span>Sign In</span></a>
+      <a href="/register" class="btn btn-primary"><i class="fas fa-user-plus"></i> <span>Open Account</span></a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fas fa-graduation-cap"></i> BCA University Project • Full-Stack C++ & SQL
+      </div>
+      <h1 class="hero-title">High-Performance Core Banking Engine</h1>
+      <p class="hero-subtitle">
+        A complete, robust university project featuring pure <strong>C++17 OOP architecture</strong>, 
+        Crow REST APIs, atomic SQLite3 SQL transactions, and a clean digital banking user experience.
+      </p>
+
+      <div class="hero-actions">
+        <a href="/login" class="btn btn-primary btn-lg">
+          <i class="fas fa-arrow-right-to-bracket"></i> <span>Launch Banking Portal</span>
+        </a>
+        <a href="/register" class="btn btn-outline btn-lg">
+          <i class="fas fa-id-card"></i> <span>Register as Customer</span>
+        </a>
+      </div>
+
+      <div class="feature-cards">
+        <div class="feature-card">
+          <div class="feature-icon" style="background: linear-gradient(135deg, #142D4E, #245B91);">
+            <i class="fas fa-code"></i>
+          </div>
+          <h3 style="font-size: 1.1rem; color: #142D4E; margin-bottom: 8px;">C++17 OOP Architecture</h3>
+          <p style="font-size: 0.9rem; color: #718096;">
+            Implements inheritance, polymorphism, abstract base classes, operator overloading, smart pointers, and custom exception handling.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon" style="background: linear-gradient(135deg, #36A6A0, #245B91);">
+            <i class="fas fa-shield-halved"></i>
+          </div>
+          <h3 style="font-size: 1.1rem; color: #142D4E; margin-bottom: 8px;">ACID Money Transactions</h3>
+          <p style="font-size: 0.9rem; color: #718096;">
+            Atomic fund transfers with rollback on failure, stored in integer paise to eliminate floating-point precision loss.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon" style="background: linear-gradient(135deg, #16A36A, #36A6A0);">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3 style="font-size: 1.1rem; color: #142D4E; margin-bottom: 8px;">Real-Time Financial Charts</h3>
+          <p style="font-size: 0.9rem; color: #718096;">
+            Dynamic income vs. expense analytics, doughnut breakdown, and customer statement generation powered by Chart.js.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="padding: 28px; text-align: center; border-top: 1px solid #E2E8F0; font-size: 0.85rem; color: #718096;">
+    <p>Bank Management System • BCA University Practical Examination Project • Simulated Educational Banking System (INR ₹)</p>
+  </footer>
+
+</body>
+</html>

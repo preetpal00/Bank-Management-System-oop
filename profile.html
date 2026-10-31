@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile | Apex Reserve Bank</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/forms.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+</head>
+<body>
+
+  <div class="sidebar-backdrop"></div>
+
+  <div class="app-wrapper">
+    <aside class="app-sidebar">
+      <div class="sidebar-header">
+        <a href="/dashboard" class="brand-logo">
+          <div class="brand-icon"><i class="fas fa-landmark"></i></div>
+          <span>Apex Reserve</span>
+        </a>
+      </div>
+      <nav class="sidebar-menu" id="sidebar-menu-items"></nav>
+      <div class="sidebar-footer">
+        <button type="button" class="btn-logout" id="btn-logout">
+          <i class="fas fa-arrow-right-from-bracket"></i>
+          <span>Sign Out</span>
+        </button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-topbar">
+        <div class="topbar-left">
+          <button type="button" class="menu-toggle-btn" id="menu-toggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <h1 class="page-title">Personal Profile</h1>
+        </div>
+        <div class="topbar-right">
+          <div class="current-date-badge">
+            <i class="fas fa-calendar-day"></i>
+            <span id="topbar-current-date">--</span>
+          </div>
+          <div class="user-profile-chip">
+            <div class="user-avatar" id="topbar-user-avatar">U</div>
+            <div class="user-meta">
+              <span class="user-name" id="topbar-user-name">User</span>
+              <span class="user-role-badge" id="topbar-user-role">CUSTOMER</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="page-content">
+        <div style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px;">
+          
+          <!-- Profile Overview Card -->
+          <div class="card">
+            <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid var(--border-color);">
+              <div style="width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, var(--secondary), var(--primary)); color: #FFF; font-size: 1.8rem; font-weight: 700; display: flex; align-items: center; justify-content: center;" id="profile-big-avatar">
+                U
+              </div>
+              <div>
+                <h2 id="profile-display-name" style="font-size: 1.4rem; color: var(--primary);">User Name</h2>
+                <div style="display: flex; gap: 10px; align-items: center; margin-top: 4px;">
+                  <span id="profile-display-role" class="badge badge-info">CUSTOMER</span>
+                  <span style="font-size: 0.85rem; color: var(--text-muted);" id="profile-display-email">email@example.com</span>
+                </div>
+              </div>
+            </div>
+
+            <form id="profile-update-form">
+              <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--primary); margin-bottom: 16px;">
+                <i class="fas fa-id-card"></i> Personal Information
+              </h3>
+              
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="profile-name">Full Name <span class="required">*</span></label>
+                  <input type="text" id="profile-name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="profile-phone">Phone Number <span class="required">*</span></label>
+                  <input type="tel" id="profile-phone" class="form-control" required>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="profile-dob">Date of Birth <span class="required">*</span></label>
+                  <input type="date" id="profile-dob" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="profile-address">Residential Address <span class="required">*</span></label>
+                  <input type="text" id="profile-address" class="form-control" required>
+                </div>
+              </div>
+
+              <div class="form-actions" style="margin-top: 14px;">
+                <button type="submit" class="btn btn-primary" id="btn-save-profile">
+                  <i class="fas fa-save"></i> <span>Save Profile Changes</span>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Change Password Card -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title"><i class="fas fa-key"></i> Security & Password</h3>
+            </div>
+
+            <form id="password-change-form">
+              <div class="form-group">
+                <label class="form-label" for="pwd-current">Current Password <span class="required">*</span></label>
+                <div class="input-group">
+                  <i class="fas fa-lock input-icon"></i>
+                  <input type="password" id="pwd-current" class="form-control with-icon" required placeholder="Enter current password">
+                  <button type="button" class="password-toggle-btn" data-target="pwd-current"><i class="fas fa-eye"></i></button>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="pwd-new">New Password <span class="required">*</span></label>
+                  <div class="input-group">
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" id="pwd-new" class="form-control with-icon" required minlength="6" placeholder="Min. 6 chars">
+                    <button type="button" class="password-toggle-btn" data-target="pwd-new"><i class="fas fa-eye"></i></button>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="pwd-confirm">Confirm New Password <span class="required">*</span></label>
+                  <div class="input-group">
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" id="pwd-confirm" class="form-control with-icon" required minlength="6" placeholder="Repeat new password">
+                    <button type="button" class="password-toggle-btn" data-target="pwd-confirm"><i class="fas fa-eye"></i></button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-actions" style="margin-top: 14px;">
+                <button type="submit" class="btn btn-outline" id="btn-change-pwd">
+                  <i class="fas fa-shield"></i> <span>Update Password</span>
+                </button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      initAppShell('profile');
+      await loadProfileData();
+
+      // Password Toggle
+      document.querySelectorAll('.password-toggle-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const target = document.getElementById(btn.getAttribute('data-target'));
+          if (target) {
+            target.type = target.type === 'password' ? 'text' : 'password';
+            btn.innerHTML = `<i class="fas fa-eye${target.type === 'password' ? '' : '-slash'}"></i>`;
+          }
+        });
+      });
+
+      // Profile Update Submit
+      document.getElementById('profile-update-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const fullName = document.getElementById('profile-name').value.trim();
+        const phone = document.getElementById('profile-phone').value.trim();
+        const address = document.getElementById('profile-address').value.trim();
+        const dob = document.getElementById('profile-dob').value;
+        const btn = document.getElementById('btn-save-profile');
+
+        try {
+          btn.disabled = true;
+          btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+          const res = await apiRequest('/api/profile', {
+            method: 'PUT',
+            body: JSON.stringify({
+              full_name: fullName,
+              phone,
+              address,
+              date_of_birth: dob
+            })
+          });
+
+          // Update local session
+          const user = AuthStore.getUser();
+          if (user) {
+            user.name = res.name || fullName;
+            user.phone = res.phone || phone;
+            user.address = res.address || address;
+            user.date_of_birth = res.date_of_birth || dob;
+            AuthStore.setUser(user);
+          }
+
+          showToast('Profile Updated', 'Personal details saved successfully.', 'success');
+          loadProfileData();
+        } catch (err) {
+          showToast('Update Failed', err.message, 'danger');
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-save"></i> <span>Save Profile Changes</span>';
+        }
+      });
+
+      // Password Change Submit
+      document.getElementById('password-change-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const oldPassword = document.getElementById('pwd-current').value;
+        const newPassword = document.getElementById('pwd-new').value;
+        const confirmPassword = document.getElementById('pwd-confirm').value;
+        const btn = document.getElementById('btn-change-pwd');
+
+        if (newPassword !== confirmPassword) {
+          showToast('Mismatch', 'New password and confirm password do not match.', 'warning');
+          return;
+        }
+
+        try {
+          btn.disabled = true;
+          btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
+
+          await apiRequest('/api/profile/change-password', {
+            method: 'POST',
+            body: JSON.stringify({
+              old_password: oldPassword,
+              new_password: newPassword
+            })
+          });
+
+          showToast('Password Changed', 'Password updated successfully.', 'success');
+          document.getElementById('password-change-form').reset();
+        } catch (err) {
+          showToast('Change Failed', err.message, 'danger');
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-shield"></i> <span>Update Password</span>';
+        }
+      });
+    });
+
+    async function loadProfileData() {
+      try {
+        const user = await apiRequest('/api/profile');
+        document.getElementById('profile-display-name').textContent = user.name || 'User';
+        document.getElementById('profile-display-email').textContent = user.email || '';
+        document.getElementById('profile-display-role').textContent = user.role || 'CUSTOMER';
+
+        const initials = (user.name || 'U').split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+        document.getElementById('profile-big-avatar').textContent = initials;
+
+        document.getElementById('profile-name').value = user.name || '';
+        document.getElementById('profile-phone').value = user.phone || '';
+        document.getElementById('profile-dob').value = user.date_of_birth || '';
+        document.getElementById('profile-address').value = user.address || '';
+      } catch (err) {
+        showToast('Error', err.message, 'danger');
+      }
+    }
+  </script>
+</body>
+</html>

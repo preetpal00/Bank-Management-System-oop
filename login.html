@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In | Apex Reserve Bank</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/forms.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+</head>
+<body class="auth-page">
+
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="auth-logo">
+        <i class="fas fa-building-columns"></i>
+      </div>
+      <h2 class="auth-title">Welcome to Apex Bank</h2>
+      <p class="auth-subtitle">Sign in to your digital banking account</p>
+    </div>
+
+    <!-- 1-Click Fast Demonstration Helper -->
+    <div class="demo-credentials-box">
+      <strong><i class="fas fa-bolt"></i> Demo 1-Click Quick Fill:</strong>
+      <div class="demo-btn-group">
+        <button type="button" class="demo-btn" id="fill-demo-admin">
+          <i class="fas fa-user-shield"></i> Demo Admin
+        </button>
+        <button type="button" class="demo-btn" id="fill-demo-customer">
+          <i class="fas fa-user"></i> Demo Customer (Rahul)
+        </button>
+      </div>
+    </div>
+
+    <form id="login-form">
+      <div class="form-group">
+        <label class="form-label" for="login-email">
+          Email or Username <span class="required">*</span>
+        </label>
+        <div class="input-group">
+          <i class="fas fa-envelope input-icon"></i>
+          <input type="email" id="login-email" class="form-control with-icon" placeholder="name@example.com" required autocomplete="username">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="login-password">
+          Password <span class="required">*</span>
+        </label>
+        <div class="input-group">
+          <i class="fas fa-lock input-icon"></i>
+          <input type="password" id="login-password" class="form-control with-icon" placeholder="••••••••••••" required autocomplete="current-password">
+          <button type="button" class="password-toggle-btn" data-target="login-password" title="Toggle visibility">
+            <i class="fas fa-eye"></i>
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px; padding: 13px;">
+        <span>Sign In to Your Account</span> <i class="fas fa-arrow-right"></i>
+      </button>
+    </form>
+
+    <div style="margin-top: 24px; text-align: center; font-size: 0.88rem; color: var(--text-muted);">
+      Don't have a banking account? <a href="/register" style="font-weight: 600;">Register as Customer</a>
+    </div>
+
+    <div style="margin-top: 14px; text-align: center; font-size: 0.8rem;">
+      <a href="/" style="color: var(--text-muted);"><i class="fas fa-house"></i> Back to Homepage</a>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+</body>
+</html>

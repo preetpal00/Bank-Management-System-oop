@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Apex Reserve Bank</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <div class="sidebar-backdrop"></div>
+
+  <div class="app-wrapper">
+    <!-- Sidebar Navigation -->
+    <aside class="app-sidebar">
+      <div class="sidebar-header">
+        <a href="/dashboard" class="brand-logo">
+          <div class="brand-icon"><i class="fas fa-landmark"></i></div>
+          <span>Apex Reserve</span>
+        </a>
+      </div>
+
+      <nav class="sidebar-menu" id="sidebar-menu-items">
+        <!-- Rendered dynamically by api.js initAppShell based on user role -->
+      </nav>
+
+      <div class="sidebar-footer">
+        <button type="button" class="btn-logout" id="btn-logout">
+          <i class="fas fa-arrow-right-from-bracket"></i>
+          <span>Sign Out</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Container -->
+    <div class="app-main">
+      <!-- Top Navigation Bar -->
+      <header class="app-topbar">
+        <div class="topbar-left">
+          <button type="button" class="menu-toggle-btn" id="menu-toggle" aria-label="Toggle menu">
+            <i class="fas fa-bars"></i>
+          </button>
+          <h1 class="page-title">Dashboard</h1>
+        </div>
+
+        <div class="topbar-right">
+          <div class="current-date-badge">
+            <i class="fas fa-calendar-day"></i>
+            <span id="topbar-current-date">--</span>
+          </div>
+
+          <div class="user-profile-chip">
+            <div class="user-avatar" id="topbar-user-avatar">U</div>
+            <div class="user-meta">
+              <span class="user-name" id="topbar-user-name">Loading...</span>
+              <span class="user-role-badge" id="topbar-user-role">CUSTOMER</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Page Content -->
+      <main class="page-content">
+
+        <!-- ==================================================================
+             CUSTOMER DASHBOARD VIEW
+             ================================================================== -->
+        <div id="customer-dashboard-view" style="display: none;">
+          <!-- 4 Summary Metrics -->
+          <div class="metrics-grid">
+            <div class="metric-card card-balance">
+              <div class="metric-icon-box"><i class="fas fa-wallet"></i></div>
+              <div class="metric-details">
+                <span class="metric-label">Total Balance</span>
+                <span class="metric-value" id="cust-total-balance">₹0.00</span>
+              </div>
+            </div>
+
+            <div class="metric-card card-accounts">
+              <div class="metric-icon-box"><i class="fas fa-credit-card"></i></div>
+              <div class="metric-details">
+                <span class="metric-label">Active Accounts</span>
+                <span class="metric-value" id="cust-active-accounts">0</span>
+              </div>
+            </div>
+
+            <div class="metric-card card-deposits">
+              <div class="metric-icon-box"><i class="fas fa-arrow-down"></i></div>
+              <div class="metric-details">
+                <span class="metric-label">Total Deposits</span>
+                <span class="metric-value" id="cust-total-deposits">₹0.00</span>
+              </div>
+            </div>
+
+            <div class="metric-card card-withdrawals">
+              <div class="metric-icon-box"><i class="fas fa-arrow-up"></i></div>
+              <div class="metric-details">
+                <span class="metric-label">Total Withdrawals</span>
+                <span class="metric-value" id="cust-total-withdrawals">₹0.00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Banking Action Shortcuts -->
+          <div class="quick-actions-bar">
+            <a href="/deposit" class="quick-action-btn">
+              <i class="fas fa-circle-arrow-down"></i>
+              <span>Deposit Money</span>
+            </a>
+            <a href="/withdraw" class="quick-action-btn">
+              <i class="fas fa-circle-arrow-up"></i>
+              <span>Withdraw Cash</span>
+            </a>
+            <a href="/transfer" class="quick-action-btn">
+              <i class="fas fa-paper-plane"></i>
+              <span>Transfer Funds</span>
+            </a>
+            <a href="/transactions" class="quick-action-btn">
+              <i class="fas fa-file-invoice-dollar"></i>
+              <span>View Statement</span>
+            </a>
+          </div>
+
+          <!-- Visual Bank Cards Showcase -->
+          <div class="card" style="margin-bottom: 30px;">
+            <div class="card-header">
+              <h3 class="card-title"><i class="fas fa-credit-card"></i> My Bank Accounts</h3>
+              <a href="/accounts" class="btn btn-outline btn-sm">Manage All Accounts</a>
+            </div>
+            <div class="bank-cards-slider" id="cust-bank-cards-list">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- Real Chart.js Financial Analytics -->
+          <div class="charts-grid">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-chart-column"></i> Monthly Income vs Expenses</h3>
+              </div>
+              <div class="chart-wrapper">
+                <canvas id="chart-monthly-income-expense"></canvas>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-chart-pie"></i> Transaction Breakdown</h3>
+              </div>
+              <div class="chart-wrapper">
+                <canvas id="chart-transaction-distribution"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Customer Transactions -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title"><i class="fas fa-clock-rotate-left"></i> Recent Transactions</h3>
+              <a href="/transactions" class="btn btn-outline btn-sm">View Complete History</a>
+            </div>
+            <div class="table-responsive">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Reference</th>
+                    <th>Type</th>
+                    <th>Account</th>
+                    <th>Amount</th>
+                    <th>Description</th>
+                    <th>Date & Time</th>
+                  </tr>
+                </thead>
+                <tbody id="cust-recent-txns-tbody">
+                  <!-- Populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================================================================
+             ADMINISTRATOR DASHBOARD VIEW
+             ================================================================== -->
+        <div id="admin-dashboard-view" style="display: none;">
+          <!-- 4 Core Metrics -->
+          <div class="metrics-grid">
+            <div class="metric-card card-balance">
+              <div class="metric-icon-box"><i class="fas fa-vault"></i></div>
+              <div class="metric-details">
+                <span class="metric-label">Total Simulated Reserves</span>
+                <span class="metric-value" id="admin-total-balance">₹0.00</span>
+              </div>
+            </div>
+
+            <div class="metric-card card-accounts">
+              <div class="metric-icon-box"><i class="fas fa-users"></i></div>
+              <div class="metric-details">
+                <span class="metric-label">Registered Customers</span>
+                <span class="metric-value" id="admin-total-customers">0</span>
+              </div>
+            </div>
+
+            <div class="metric-card card-deposits">
+              <div class="metric-icon-box"><i class="fas fa-piggy-bank"></i></div>
+              <div class="metric-details">
+                <span class="metric-label">Active Bank Accounts</span>
+                <span class="metric-value" id="admin-total-accounts">0</span>
+              </div>
+            </div>
+
+            <div class="metric-card card-withdrawals">
+              <div class="metric-icon-box"><i class="fas fa-shuffle"></i></div>
+              <div class="metric-details">
+                <span class="metric-label">Total Fund Transfers</span>
+                <span class="metric-value" id="admin-total-transfers">₹0.00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- System Analytics Charts -->
+          <div class="charts-grid">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-chart-line"></i> Monthly Transaction Activity</h3>
+              </div>
+              <div class="chart-wrapper">
+                <canvas id="admin-chart-monthly-activity"></canvas>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-chart-pie"></i> Account Type Distribution</h3>
+              </div>
+              <div class="chart-wrapper">
+                <canvas id="admin-chart-account-distribution"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- System-Wide Recent Transactions -->
+          <div class="card" style="margin-bottom: 30px;">
+            <div class="card-header">
+              <h3 class="card-title"><i class="fas fa-money-bill-transfer"></i> Bank-Wide Recent Transactions</h3>
+              <a href="/transactions" class="btn btn-outline btn-sm">Full Transaction Log</a>
+            </div>
+            <div class="table-responsive">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Reference</th>
+                    <th>Type</th>
+                    <th>Account</th>
+                    <th>Amount</th>
+                    <th>Description</th>
+                    <th>Date & Time</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-recent-txns-tbody">
+                  <!-- Populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Administrator Audit Activity Log -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title"><i class="fas fa-shield-halved"></i> Administrative Activity & Audit Trail</h3>
+            </div>
+            <div class="table-responsive">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Action</th>
+                    <th>Description</th>
+                    <th>Administrator</th>
+                    <th>Timestamp</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-audit-logs-tbody">
+                  <!-- Populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>

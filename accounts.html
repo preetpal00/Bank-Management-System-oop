@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accounts | Apex Reserve Bank</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/forms.css">
+  <link rel="stylesheet" href="/css/responsive.css">
+</head>
+<body>
+
+  <div class="sidebar-backdrop"></div>
+
+  <div class="app-wrapper">
+    <aside class="app-sidebar">
+      <div class="sidebar-header">
+        <a href="/dashboard" class="brand-logo">
+          <div class="brand-icon"><i class="fas fa-landmark"></i></div>
+          <span>Apex Reserve</span>
+        </a>
+      </div>
+      <nav class="sidebar-menu" id="sidebar-menu-items"></nav>
+      <div class="sidebar-footer">
+        <button type="button" class="btn-logout" id="btn-logout">
+          <i class="fas fa-arrow-right-from-bracket"></i>
+          <span>Sign Out</span>
+        </button>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="app-topbar">
+        <div class="topbar-left">
+          <button type="button" class="menu-toggle-btn" id="menu-toggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <h1 class="page-title">Bank Accounts</h1>
+        </div>
+        <div class="topbar-right">
+          <div class="current-date-badge">
+            <i class="fas fa-calendar-day"></i>
+            <span id="topbar-current-date">--</span>
+          </div>
+          <div class="user-profile-chip">
+            <div class="user-avatar" id="topbar-user-avatar">U</div>
+            <div class="user-meta">
+              <span class="user-name" id="topbar-user-name">User</span>
+              <span class="user-role-badge" id="topbar-user-role">ROLE</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="page-content">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title"><i class="fas fa-wallet"></i> Account Directory</h3>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+                Manage simulated savings, current, and student accounts.
+              </p>
+            </div>
+            <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+              <input type="text" id="account-search" class="form-control" placeholder="Search account number..." style="width: 240px; padding: 8px 14px;">
+              <button type="button" class="btn btn-primary" id="btn-open-create-account">
+                <i class="fas fa-plus"></i> <span>Open New Account</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Account Number</th>
+                  <th>Account Holder</th>
+                  <th>Type</th>
+                  <th>Balance (INR)</th>
+                  <th>Status</th>
+                  <th>Opened Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="accounts-tbody">
+                <!-- Dynamically loaded -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Create Account Modal -->
+  <div class="modal-backdrop" id="modal-create-account">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title"><i class="fas fa-plus-circle"></i> Open New Bank Account</h3>
+        <button type="button" class="modal-close-btn" onclick="closeModal('modal-create-account')">&times;</button>
+      </div>
+      <form id="form-create-account">
+        <div class="modal-body">
+          <div class="form-group" id="create-acc-customer-group" style="display: none;">
+            <label class="form-label" for="new-acc-customer-id">Assign to Customer <span class="required">*</span></label>
+            <select id="new-acc-customer-id" class="form-control">
+              <!-- Populated dynamically for admin -->
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="new-acc-type">Account Type <span class="required">*</span></label>
+            <select id="new-acc-type" class="form-control" required>
+              <option value="SAVINGS">Savings Account (₹500 min balance, 4.0% interest)</option>
+              <option value="CURRENT">Current Account (Flexible business account, overdraft limit)</option>
+              <option value="STUDENT">Student Account (Academic special account)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="new-acc-deposit">Initial Deposit Amount (₹)</label>
+            <div class="input-group">
+              <span class="input-prefix">₹</span>
+              <input type="number" id="new-acc-deposit" class="form-control with-prefix" placeholder="0.00" min="0" step="100" value="1000">
+            </div>
+            <div class="form-hint">Enter simulated initial opening deposit in Rupees.</div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeModal('modal-create-account')">Cancel</button>
+          <button type="submit" class="btn btn-primary"><span>Create Account</span></button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/accounts.js"></script>
+</body>
+</html>
